@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UAB - Dashboard</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f5f5f5}
+.nav{background:#111;color:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-size:15px;font-weight:800}
+.nav-r{display:flex;align-items:center;gap:1rem}
+.nav-nm{font-size:13px;color:#aaa}
+.av{width:34px;height:34px;border-radius:50%;background:#333;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.so{background:transparent;border:1px solid #444;color:#aaa;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.5rem}
+.bc{background:#111;color:#fff;border-radius:14px;padding:1.8rem;margin-bottom:1.5rem}
+.bl{font-size:11px;color:#888;margin-bottom:5px}
+.ba{font-size:36px;font-weight:800;margin-bottom:1rem}
+.ib{background:rgba(255,255,255,.08);border-radius:7px;padding:7px 12px;font-size:11px;color:#aaa;font-family:monospace;display:flex;justify-content:space-between}
+.cp{background:transparent;border:1px solid #444;color:#aaa;padding:2px 8px;border-radius:4px;cursor:pointer;font-size:10px}
+.acts{display:grid;grid-template-columns:repeat(6,1fr);gap:.9rem;margin-bottom:1.5rem}
+.ac{background:#fff;border-radius:11px;padding:.9rem;text-align:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.ac:hover{transform:translateY(-2px)}
+.ai{font-size:22px;margin-bottom:4px}
+.al{font-size:11px;color:#555;font-weight:600}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.sc{background:#fff;border-radius:11px;padding:1.3rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.st{font-size:14px;font-weight:800;color:#111;margin-bottom:1rem}
+.tr{display:flex;align-items:center;gap:10px;padding:.65rem 0;border-bottom:1px solid #f5f5f5}
+.tr:last-child{border-bottom:none}
+.ti{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px}
+.cri{background:#f0fff4}.dbi{background:#fff0f0}
+.tn{font-size:12px;font-weight:600;color:#111}
+.td2{font-size:10px;color:#aaa}
+.ta2{font-size:13px;font-weight:700}
+.cr{color:#006600}.db{color:#cc0000}
+.em{text-align:center;padding:1.5rem;color:#aaa;font-size:12px}
+.sr2{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid #f5f5f5}
+.sr2:last-child{border-bottom:none}
+.sn{font-size:12px;font-weight:700;color:#111}
+.sk{font-size:10px;color:#888}
+.sp{font-size:13px;font-weight:700;color:#111}
+.sch{font-size:11px;padding:2px 7px;border-radius:20px;font-weight:600}
+.up{background:#f0fff4;color:#006600}.dn{background:#fff0f0;color:#cc0000}
+.mo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:999}
+.mo.open{display:flex}
+.mb{background:#fff;border-radius:14px;padding:1.8rem;width:480px;max-height:90vh;overflow-y:auto}
+.mb h3{font-size:17px;font-weight:800;margin-bottom:1.3rem;color:#111}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.mf{display:flex;flex-direction:column;gap:3px}
+.mf label{font-size:11px;font-weight:600;color:#444}
+.mf input,.mf select{padding:9px 11px;border:1.5px solid #ddd;border-radius:7px;font-size:12px;color:#111;outline:none;width:100%}
+.mf input:focus{border-color:#111}
+.mbtns{display:flex;gap:8px;margin-top:1rem}
+.mb1{background:#111;color:#fff;border:none;padding:11px 20px;border-radius:7px;cursor:pointer;font-weight:700;flex:1}
+.mb2{background:#f5f5f5;border:none;padding:11px 20px;border-radius:7px;cursor:pointer;flex:1}
+.suc{background:#f0fff4;border:1px solid #ccffcc;border-radius:7px;padding:11px;color:#006600;font-size:13px;margin-top:1rem;display:none;text-align:center}
+.ri{background:#f5f5f5;border-radius:11px;padding:1.3rem}
+.rr{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #eee}
+.rr:last-child{border-bottom:none}
+.rr label{font-size:11px;color:#888;font-weight:600}
+.rr span{font-size:12px;font-weight:700;color:#111}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.si{background:#f5f5f5;border-radius:9px;padding:.9rem}
+.si label{font-size:11px;color:#888;font-weight:600;display:block;margin-bottom:5px}
+.si input{width:100%;padding:8px 11px;border:1.5px solid #ddd;border-radius:7px;font-size:12px;color:#111;outline:none}
+.ta{width:100%;padding:9px 11px;border:1.5px solid #ddd;border-radius:7px;font-size:12px;color:#111;resize:none;font-family:Arial;margin-bottom:9px}
+</style>
+</head>
+<body>
+<div class="nav">
+<div class="nav-logo">🏦 United Access Banks</div>
+<div class="nav-r">
+<span class="nav-nm" id="nn"></span>
+<div class="av" id="av"></div>
+<button class="so" onclick="out()">Sign Out</button>
+</div>
+</div>
+<div class="wrap">
+<div class="bc">
+<div class="bl">TOTAL BALANCE</div>
+<div class="ba" id="ba">$0</div>
+<div style="display:flex;gap:2rem;margin-bottom:1rem">
+<div><div style="font-size:10px;color:#888">Status</div><div style="font-size:13px;font-weight:600;margin-top:1px">Active ✅</div></div>
+<div><div style="font-size:10px;color:#888">Type</div><div style="font-size:13px;font-weight:600;margin-top:1px">Personal</div></div>
+<div><div style="font-size:10px;color:#888">Date</div><div style="font-size:13px;font-weight:600;margin-top:1px" id="dt"></div></div>
+</div>
+<div class="ib"><span id="ib">IBAN: —</span><button class="cp" onclick="cpI()">Copy</button></div>
+</div>
+<div class="acts">
+<div class="ac" onclick="om('sm')"><div class="ai">💸</div><div class="al">Send Money</div></div>
+<div class="ac" onclick="om('rm')"><div class="ai">📥</div><div class="al">Receive</div></div>
+<div class="ac" onclick="om('cm')"><div class="ai">💳</div><div class="al">My Cards</div></div>
+<div class="ac" onclick="om('stm')"><div class="ai">⚙️</div><div class="al">Settings</div></div>
+<div class="ac" onclick="om('tm')"><div class="ai">🌍</div><div class="al">Translate</div></div>
+<div class="ac" onclick="pst()"><div class="ai">🖨️</div><div class="al">Statement</div></div>
+</div>
+<div class="g2">
+<div class="sc"><div class="st">Recent Transactions</div><div id="txl"><div class="em">No transactions yet.</div></div></div>
+<div class="sc"><div class="st">📈 Market Stocks</div><div id="skl"></div></div>
+</div>
+</div>
+<div class="mo" id="sm">
+<div class="mb">
+<h3>💸 Bank Transfer</h3>
+<div class="mg">
+<div class="mf"><label>Recipient Name</label><input id="s1" placeholder="John Smith"/></div>
+<div class="mf"><label>Bank Name</label><input id="s2" placeholder="United Access Banks"/></div>
+<div class="mf"><label>Account Number</label><input id="s3" placeholder="1234567890"/></div>
+<div class="mf"><label>IBAN</label><input id="s4" placeholder="UAB0001US12345678"/></div>
+<div class="mf"><label>SWIFT Code</label><input id="s5" placeholder="UABCUS33"/></div>
+<div class="mf"><label>Email (optional)</label><input id="s6" placeholder="john@uab.com"/></div>
+<div class="mf"><label>Amount ($)</label><input id="s7" type="number" placeholder="0.00"/></div>
+<div class="mf"><label>Currency</label><select id="s8"><option>USD</option><option>GBP</option><option>EUR</option><option>NGN</option><option>GHS</option></select></div>
+<div class="mf" style="grid-column:1/-1"><label>Narration</label><input id="s9" placeholder="Payment for services"/></div>
+</div>
+<div id="ssum" style="background:#f5f5f5;border-radius:11px;padding:1.1rem;margin:1rem 0;display:none">
+<div style="font-size:12px;font-weight:700;margin-bottom:.9rem">Transfer Summary</div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px"><span style="color:#888">To:</span><span id="x1" style="font-weight:600"></span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px"><span style="color:#888">Bank:</span><span id="x2" style="font-weight:600"></span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px"><span style="color:#888">IBAN:</span><span id="x3" style="font-weight:600"></span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee;font-size:12px"><span style="color:#888">Amount:</span><span id="x4" style="font-weight:600"></span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px"><span style="color:#888">Narration:</span><span id="x5" style="font-weight:600"></span></div>
+</div>
+<div class="suc" id="ssuc">Transfer completed!</div>
+<div class="mbtns" id="sb1"><button class="mb1" onclick="rev()">Review Transfer</button><button class="mb2" onclick="cl('sm')">Cancel</button></div>
+<div class="mbtns" id="sb2" style="display:none"><button class="mb1" onclick="snd()">Confirm and Send</button><button class="mb2" onclick="edt()">Edit</button></div>
+</div>
+</div>
+<div class="mo" id="rm">
+<div class="mb">
+<h3>📥 Receive Money</h3>
+<div class="ri">
+<div class="rr"><label>Name</label><span id="rn"></span></div>
+<div class="rr"><label>IBAN</label><span id="ri2"></span></div>
+<div class="rr"><label>Bank</label><span>United Access Banks</span></div>
+<div class="rr"><label>SWIFT</label><span>UABCUS33XXX</span></div>
+</div>
+<div class="suc" id="rsuc">Details copied!</div>
+<div class="mbtns" style="margin-top:1rem"><button class="mb1" onclick="cpD()">Copy Details</button><button class="mb2" onclick="cl('rm')">Close</button></div>
+</div>
+</div>
+<div class="mo" id="cm">
+<div class="mb">
+<h3>💳 My Cards</h3>
+<div style="background:linear-gradient(135deg,#111,#444);border-radius:11px;padding:1.3rem;color:#fff;margin-bottom:1rem">
+<div style="font-size:13px;font-weight:700;opacity:.8">United Access Banks</div>
+<div style="font-size:15px;letter-spacing:.15em;margin:.9rem 0;font-family:monospace">•••• •••• •••• 4821</div>
+<div style="display:flex;justify-content:space-between;font-size:11px;opacity:.8">
+<div><div style="font-size:9px;opacity:.6">HOLDER</div><div id="chn" style="font-size:12px;font-weight:700;margin-top:1px"></div></div>
+<div><div style="font-size:9px;opacity:.6">EXPIRES</div><div style="font-size:12px;font-weight:700;margin-top:1px">09/29</div></div>
+<div><div style="font-size:9px;opacity:.6">TYPE</div><div style="font-size:12px;font-weight:700;margin-top:1px">VISA</div></div>
+</div>
+</div>
+<div class="ri">
+<div class="rr"><label>Status</label><span style="color:#006600">Active</span></div>
+<div class="rr"><label>Daily Limit</label><span>$50,000</span></div>
+<div class="rr"><label>Online</label><span style="color:#006600">Enabled</span></div>
+</div>
+<div class="mbtns" style="margin-top:1rem"><button class="mb2" onclick="cl('cm')">Close</button></div>
+</div>
+</div>
+<div class="mo" id="stm">
+<div class="mb">
+<h3>⚙️ Settings</h3>
+<div class="sg">
+<div class="si"><label>Full Name</label><input id="p1"/></div>
+<div class="si"><label>Email</label><input id="p2" type="email"/></div>
+<div class="si"><label>Phone</label><input id="p3"/></div>
+<div class="si"><label>Date of Birth</label><input id="p4" type="date"/></div>
+<div class="si"><label>Location</label><input id="p5"/></div>
+<div class="si"><label>Next of Kin</label><input id="p6"/></div>
+<div class="si"><label>New Password</label><input id="p7" type="password" placeholder="Leave blank to keep"/></div>
+<div class="si"><label>Photo URL</label><input id="p8" placeholder="Paste image link"/></div>
+</div>
+<div class="suc" id="stsuc">Settings saved!</div>
+<div class="mbtns" style="margin-top:1rem"><button class="mb1" onclick="sav()">Save</button><button class="mb2" onclick="cl('stm')">Cancel</button></div>
+</div>
+</div>
+<div class="mo" id="tm">
+<div class="mb">
+<h3>🌍 Translator</h3>
+<div class="mf" style="margin-bottom:1rem"><label>Language</label>
+<select id="tl"><option value="es">Spanish</option><option value="fr">French</option><option value="de">German</option><option value="ar">Arabic</option><option value="zh">Chinese</option><option value="pt">Portuguese</option><option value="ru">Russian</option><option value="hi">Hindi</option><option value="sw">Swahili</option><option value="yo">Yoruba</option><option value="ha">Hausa</option></select>
+</div>
+<label style="font-size:11px;font-weight:600;color:#444;display:block;margin-bottom:5px">Enter Text</label>
+<textarea class="ta" id="ti" rows="3" placeholder="Type here..."></textarea>
+<button class="mb1" onclick="tr()" style="width:100%;margin-bottom:1rem">Translate</button>
+<label style="font-size:11px;font-weight:600;color:#444;display:block;margin-bottom:5px">Result</label>
+<textarea class="ta" id="to2" rows="3" readonly></textarea>
+<div class="mbtns"><button class="mb2" onclick="cl('tm')">Close</button></div>
+</div>
+</div>
+<script>
+var W=JSON.parse(localStorage.getItem("UAB_WHO"));
+var DB=JSON.parse(localStorage.getItem("UAB_DB"));
+var SET=JSON.parse(localStorage.getItem("UAB_SET"))||{locked:false,txBlocked:false};
+if(!W||!DB){window.location.href="index.html";}
+var U=null;
+for(var i=0;i<DB.length;i++){if(DB[i].id===W.id){U=DB[i];break;}}
+if(!U){window.location.href="index.html";}
+var SK=[{n:"Apple",t:"AAPL",p:"$189.30",c:"+1.24%",u:true},{n:"Microsoft",t:"MSFT",p:"$378.90",c:"+0.87%",u:true},{n:"Tesla",t:"TSLA",p:"$242.10",c:"-2.14%",u:false},{n:"Amazon",t:"AMZN",p:"$186.40",c:"+1.56%",u:true},{n:"Gold",t:"XAU",p:"$2,031",c:"+0.32%",u:true},{n:"Bitcoin",t:"BTC",p:"$67,240",c:"-1.02%",u:false}];
+var TD={es:{balance:"Saldo",transfer:"Transferencia",bank:"Banco",account:"Cuenta",money:"Dinero",send:"Enviar",receive:"Recibir"},fr:{balance:"Solde",transfer:"Transfert",bank:"Banque",account:"Compte",money:"Argent",send:"Envoyer",receive:"Recevoir"},de:{balance:"Kontostand",transfer:"Uberweisung",bank:"Bank",account:"Konto",money:"Geld",send:"Senden",receive:"Empfangen"},ar:{balance:"رصيد",transfer:"تحويل",bank:"بنك",account:"حساب",money:"مال",send:"ارسال",receive:"استقبال"},zh:{balance:"余额",transfer:"转账",bank:"银行",account:"账户",money:"钱",send:"发送",receive:"接收"},pt:{balance:"Saldo",transfer:"Transferencia",bank:"Banco",account:"Conta",money:"Dinheiro",send:"Enviar",receive:"Receber"},ru:{balance:"Баланс",transfer:"Перевод",bank:"Банк",account:"Счет",money:"Деньги",send:"Отправить",receive:"Получить"},hi:{balance:"शेष",transfer:"स्थानांतरण",bank:"बैंक",account:"खाता",money:"पैसा",send:"भेजना",receive:"प्राप्त"},sw:{balance:"Salio",transfer:"Uhamisho",bank:"Benki",account:"Akaunti",money:"Pesa",send:"Tuma",receive:"Pokea"},yo:{balance:"Iye owo",transfer:"Fifo owo",bank:"Ile-ifonpamo",account:"Akanti",money:"Owo",send:"Firanṣẹ",receive:"Gba"},ha:{balance:"Asusun kudi",transfer:"Canja wurin",bank:"Banki",account:"Asusun",money:"Kudi",send:"Aika",receive:"Karba"}};
+function init(){
+document.getElementById("nn").textContent=U.name;
+var av=document.getElementById("av");
+if(U.photo){av.innerHTML='<img src="'+U.photo+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}else{av.textContent=U.name[0].toUpperCase();}
+document.getElementById("ba").textContent="$"+U.bal.toLocaleString();
+document.getElementById("ib").textContent="IBAN: "+U.iban;
+document.getElementById("dt").textContent=new Date().toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+document.getElementById("rn").textContent=U.name;
+document.getElementById("ri2").textContent=U.iban;
+document.getElementById("chn").textContent=U.name.toUpperCase();
+document.getElementById("p1").value=U.name||"";
+document.getElementById("p2").value=U.email||"";
+document.getElementById("p3").value=U.phone||"";
+document.getElementById("p4").value=U.dob||"";
+document.getElementById("p5").value=U.location||"";
+document.getElementById("p6").value=U.kin||"";
+document.getElementById("p8").value=U.photo||"";
+rTx();rSk();
+}
+function rTx(){
+var l=document.getElementById("txl");
+if(!U.tx||U.tx.length===0){l.innerHTML='<div class="em">No transactions yet.</div>';return;}
+l.innerHTML="";
+var sh=U.tx.slice(0,8);
+for(var i=0;i<sh.length;i++){
+var t=sh[i];var cr=t.type==="cr";
+var d=document.createElement("div");d.className="tr";
+d.innerHTML='<div class="ti '+(cr?"cri":"dbi")+'">'+(cr?"💰":"💸")+'</div><div style="flex:1"><div class="tn">'+t.desc+'</div><div class="td2">'+t.date+"</div></div>"+'<div class="ta2 '+(cr?"cr":"db")+'">'+(cr?"+":"-")+"$"+t.amt.toLocaleString()+"</div>";
+l.appendChild(d);
+}}
+function rSk(){
+var l=document.getElementById("skl");l.innerHTML="";
+for(var i=0;i<SK.length;i++){
+var s=SK[i];var d=document.createElement("div");d.className="sr2";
+d.innerHTML='<div><div class="sn">'+s.n+'</div><div class="sk">'+s.t+"</div></div>"+'<div style="text-align:right"><div class="sp">'+s.p+'</div><div class="sch '+(s.u?"up":"dn")+'">'+s.c+"</div></div>";
+l.appendChild(d);
+}}
+function om(id){if(id==="sm"&&SET.txBlocked){alert("Transactions blocked.");return;}document.getElementById(id).classList.add("open");}
+function cl(id){document.getElementById(id).classList.remove("open");if(id==="sm")rst();}
+function rst(){
+["s1","s2","s3","s4","s5","s6","s7","s9"].forEach(function(x){var e=document.getElementById(x);if(e)e.value="";});
+document.getElementById("ssum").style.display="none";
+document.getElementById("ssuc").style.display="none";
+document.getElementById("sb1").style.display="flex";
+document.getElementById("sb2").style.display="none";
+}
+function rev(){
+var n=document.getElementById("s1").value.trim();
+var b=document.getElementById("s2").value.trim();
+var ib=document.getElementById("s4").value.trim();
+var a=parseFloat(document.getElementById("s7").value);
+var no=document.getElementById("s9").value.trim();
+var cu=document.getElementById("s8").value;
+if(!n){alert("Enter recipient name!");return;}
+if(!b){alert("Enter bank name!");return;}
+if(!ib){alert("Enter IBAN!");return;}
+if(!a||a<=0){alert("Enter valid amount!");return;}
+if(a>U.bal){alert("Insufficient funds!");return;}
+document.getElementById("x1").textContent=n;
+document.getElementById("x2").textContent=b;
+document.getElementById("x3").textContent=ib;
+document.getElementById("x4").textContent="$"+a.toLocaleString()+" "+cu;
+document.getElementById("x5").textContent=no||"N/A";
+document.getElementById("ssum").style.display="block";
+document.getElementById("sb1").style.display="none";
+document.getElementById("sb2").style.display="flex";
+}
+function edt(){document.getElementById("ssum").style.display="none";document.getElementById("sb1").style.display="flex";document.getElementById("sb2").style.display="none";}
+function snd(){
+var ib=document.getElementById("s4").value.trim();
+var em=document.getElementById("s6").value.trim();
+var a=parseFloat(document.getElementById("s7").value);
+var no=document.getElementById("s9").value.trim();
+var n=document.getElementById("s1").value.trim();
+var b=document.getElementById("s2").value.trim();
+var rec=null;
+for(var i=0;i<DB.length;i++){if(DB[i].iban===ib||DB[i].email===em){rec=DB[i];break;}}
+U.bal-=a;
+if(!U.tx)U.tx=[];
+U.tx.unshift({type:"db",amt:a,desc:"To "+n+" | "+b+(no?" | "+no:""),date:new Date().toLocaleDateString()});
+if(rec){rec.bal+=a;if(!rec.tx)rec.tx=[];rec.tx.unshift({type:"cr",amt:a,desc:"From "+U.name+(no?" | "+no:""),date:new Date().toLocaleDateString()});}
+for(var j=0;j<DB.length;j++){if(DB[j].id===U.id)DB[j]=U;if(rec&&DB[j].id===rec.id)DB[j]=rec;}
+localStorage.setItem("UAB_DB",JSON.stringify(DB));
+localStorage.setItem("UAB_WHO",JSON.stringify(U));
+document.getElementById("ba").textContent="$"+U.bal.toLocaleString();
+document.getElementById("sb2").style.display="none";
+document.getElementById("ssuc").style.display="block";
+rTx();
+setTimeout(function(){cl("sm");},2500);
+}
+function cpI(){navigator.clipboard.writeText(U.iban);alert("IBAN copied!");}
+function cpD(){navigator.clipboard.writeText("Name: "+U.name+"\nIBAN: "+U.iban+"\nBank: United Access Banks\nSWIFT: UABCUS33XXX");document.getElementById("rsuc").style.display="block";setTimeout(function(){document.getElementById("rsuc").style.display="none";},2000);}
+function sav(){
+U.name=document.getElementById("p1").value;
+U.email=document.getElementById("p2").value;
+U.phone=document.getElementById("p3").value;
+U.dob=document.getElementById("p4").value;
+U.location=document.getElementById("p5").value;
+U.kin=document.getElementById("p6").value;
+U.photo=document.getElementById("p8").value;
+var np=document.getElementById("p7").value;
+if(np)U.pw=np;
+for(var i=0;i<DB.length;i++){if(DB[i].id===U.id){DB[i]=U;break;}}
+localStorage.setItem("UAB_DB",JSON.stringify(DB));
+localStorage.setItem("UAB_WHO",JSON.stringify(U));
+document.getElementById("nn").textContent=U.name;
+document.getElementById("stsuc").style.display="block";
+setTimeout(function(){document.getElementById("stsuc").style.display="none";},2000);
+}
+function tr(){
+var txt=document.getElementById("ti").value.trim();
+var lg=document.getElementById("tl").value;
+if(!txt){alert("Enter text!");return;}
+var d=TD[lg]||{};var r=txt;
+var ks=Object.keys(d);
+for(var i=0;i<ks.length;i++){var re=new RegExp(ks[i],"gi");r=r.replace(re,d[ks[i]]);}
+document.getElementById("to2").value=r;
+}
+function pst(){
+var rows="";
+if(U.tx&&U.tx.length){for(var i=0;i<U.tx.length;i++){var t=U.tx[i];var cr=t.type==="cr";rows+="<tr><td>"+t.date+"</td><td>"+t.desc+"</td><td style='color:"+(cr?"green":"red")+"'>"+(cr?"+":"-")+"$"+t.amt.toLocaleString()+"</td></tr>";}}else{rows="<tr><td colspan='3'>No transactions</td></tr>";}
+var w=window.open("","_blank");
+w.document.write("<html><body><h2>UAB Statement</h2><p>"+U.name+"</p><p>Balance: $"+U.bal.toLocaleString()+"</p><table border=1 width=100%><tr><th>Date</th><th>Description</th><th>Amount</th></tr>"+rows+"</table>");
+w.print();
+}
+function out(){localStorage.removeItem("UAB_WHO");window.location.href="index.html";}
+init();
+</script>
+</body>
+</html> 

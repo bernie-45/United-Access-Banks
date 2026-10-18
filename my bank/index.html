@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>United Access Banks</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#fff;display:flex;height:100vh}
+.left{width:50%;background:#111;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;padding:3rem}
+.left h1{font-size:22px;font-weight:800;margin-bottom:8px;text-align:center}
+.left p{color:#aaa;font-size:13px;text-align:center;margin-bottom:2rem}
+.bank-icon{font-size:56px;margin-bottom:16px}
+.feat{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #222;color:#ccc;font-size:13px;width:100%}
+.right{width:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:3rem}
+.right h2{font-size:24px;font-weight:800;color:#111;margin-bottom:4px}
+.right p{color:#888;font-size:13px;margin-bottom:1.5rem}
+.fg{width:100%;max-width:340px;margin-bottom:.9rem}
+label{display:block;font-size:12px;color:#444;margin-bottom:5px;font-weight:600}
+input{width:100%;padding:12px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;color:#111;outline:none}
+input:focus{border-color:#111}
+.btn{width:100%;max-width:340px;padding:12px;background:#111;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:.4rem}
+.btn:hover{background:#333}
+.err{color:#e53e3e;font-size:12px;margin-top:8px;text-align:center;max-width:340px}
+.ssl{font-size:11px;color:#aaa;margin-top:1.5rem;text-align:center;max-width:340px}
+</style>
+</head>
+<body>
+<div class="left">
+<div class="bank-icon">🏦</div>
+<h1>United Access Banks</h1>
+<p>Secure. Trusted. Powerful.</p>
+<div class="feat">🔒 Bank-grade security</div>
+<div class="feat">💳 Instant transactions</div>
+<div class="feat">🌍 Global access</div>
+<div class="feat">👑 Admin controlled</div>
+<div class="feat">📊 Real-time dashboard</div>
+</div>
+<div class="right">
+<h2>Welcome Back</h2>
+<p>Sign in to your account</p>
+<div class="fg"><label>Email Address</label><input type="email" id="em" placeholder="Enter your email"/></div>
+<div class="fg"><label>Password</label><input type="password" id="pw" placeholder="Enter your password"/></div>
+<button class="btn" onclick="go()">Sign In</button>
+<p class="err" id="er"></p>
+<p class="ssl">🔐 256-bit SSL Encryption — United Access Banks</p>
+</div>
+<script>
+var DB=[
+{id:1,name:"John Smith",email:"john@uab.com",pw:"john123",dob:"1990-05-15",phone:"+1 555 0101",location:"New York, USA",kin:"Mary Smith",photo:"",iban:"UAB0001US12345678",bal:15000000,tx:[],blocked:false},
+{id:2,name:"Sarah Johnson",email:"sarah@uab.com",pw:"sarah123",dob:"1985-11-22",phone:"+1 555 0102",location:"London, UK",kin:"Tom Johnson",photo:"",iban:"UAB0002GB87654321",bal:20000000,tx:[],blocked:false},
+{id:3,name:"Mike Davis",email:"mike@uab.com",pw:"mike123",dob:"1995-03-08",phone:"+1 555 0103",location:"Lagos, Nigeria",kin:"Grace Davis",photo:"",iban:"UAB0003NG11223344",bal:15000000,tx:[],blocked:false}
+];
+var SET={locked:false,txBlocked:false};
+if(!localStorage.getItem("UAB_DB")){localStorage.setItem("UAB_DB",JSON.stringify(DB));}
+if(!localStorage.getItem("UAB_SET")){localStorage.setItem("UAB_SET",JSON.stringify(SET));}
+function go(){var e=document.getElementById("em").value.trim();
+var p=document.getElementById("pw").value.trim();
+var er=document.getElementById("er");
+er.textContent="";
+if(!e||!p){er.textContent="Please fill in all fields.";return;}
+var s=JSON.parse(localStorage.getItem("UAB_SET"));
+if(s.locked&&e!=="admin@uab.com"){er.textContent="Site locked. Contact admin.";return;}
+if(e==="admin@uab.com"&&p==="admin123"){localStorage.setItem("UAB_WHO",JSON.stringify({role:"admin"}));window.location.href="admin.html";return;}
+var db=JSON.parse(localStorage.getItem("UAB_DB"));
+var u=null;
+for(var i=0;i<db.length;i++){
+if(db[i].email===e&&db[i].pw===p){
+localStorage.setItem("UAB_WHO",JSON.stringify(db[i]));
+window.location.href="dashboard.html";
+return;
+}
+}
+er.textContent="Invalid email or password.";
+}
+</script>
+</body>
+</html>

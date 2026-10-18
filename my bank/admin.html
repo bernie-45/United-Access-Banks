@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UAB - Admin Panel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f5f5f5;color:#111}
+.side{position:fixed;top:0;left:0;width:220px;height:100vh;background:#111;color:#fff;padding:1.5rem 1rem;display:flex;flex-direction:column}
+.logo{font-size:14px;font-weight:800}
+.sub{font-size:11px;color:#999;margin:4px 0 2rem}
+.nb{width:100%;padding:10px 12px;background:transparent;border:none;color:#ccc;text-align:left;border-radius:8px;cursor:pointer;font-size:13px;margin-bottom:4px}
+.nb:hover,.nb.on{background:#fff;color:#111;font-weight:700}
+.lo{margin-top:auto;padding:10px;background:transparent;border:1px solid #555;color:#ccc;border-radius:8px;cursor:pointer}
+.main{margin-left:220px;padding:2rem}
+.tab{display:none}
+.tab.on{display:block}
+h2{font-size:20px;margin-bottom:1.2rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat{background:#fff;border-radius:12px;padding:1rem 1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.sl{font-size:11px;color:#888}
+.sv{font-size:22px;font-weight:800;margin-top:4px}
+.btn{background:#111;color:#fff;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+.btn:hover{opacity:.85}
+.btn2{background:#eee;color:#111;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-size:13px}
+.red{background:#c00}
+.card{background:#fff;border-radius:12px;padding:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:1rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f label{display:block;font-size:11px;font-weight:700;color:#555;margin-bottom:4px}
+.f input{width:100%;padding:9px 11px;border:1.5px solid #ddd;border-radius:7px;font-size:13px;outline:none}
+.f input:focus{border-color:#111}
+.urow{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.av{width:46px;height:46px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;overflow:hidden;flex-shrink:0}
+.av img{width:100%;height:100%;object-fit:cover}
+.ui{flex:1;min-width:200px}
+.un{font-weight:700;font-size:14px}
+.um{font-size:12px;color:#888;margin-top:2px}
+.ub{font-size:18px;font-weight:800}
+.sb{border:none;padding:7px 12px;border-radius:6px;cursor:pointer;font-size:12px;margin-left:4px}
+.e{background:#eee}
+.k{background:#fff0f0;color:#c00}
+.g{background:#f0fff4;color:#060}
+.tag{font-size:10px;color:#c00;font-weight:700;margin-left:6px}
+.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin:10px 0}
+.bon{background:#fff0f0;color:#c00}
+.boff{background:#f0fff4;color:#060}
+.themes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1rem}
+.th{height:70px;border-radius:12px;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:3px solid transparent}
+.th:hover{border-color:#999}
+.cr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #eee;font-size:13px}
+.cr input{width:50px;height:32px;border:none;cursor:pointer}
+.mo{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:99}
+.mo.open{display:flex}
+.mb{background:#fff;border-radius:14px;padding:1.6rem;width:520px;max-height:90vh;overflow-y:auto}
+.mb h3{margin-bottom:1rem}
+.money{display:flex;gap:8px;margin-top:.6rem}
+.money input{flex:1;padding:9px 11px;border:1.5px solid #ddd;border-radius:7px}
+.bal{background:#f5f5f5;border-radius:8px;padding:10px;margin-top:8px;font-weight:700;font-size:13px}
+</style>
+</head>
+<body>
+<div class="side" id="side">
+<div class="logo">🏦 United Access Banks</div>
+<div class="sub">Admin Control Panel</div>
+<button class="nb on" id="b-users" onclick="tab('users')">👥 User Accounts</button>
+<button class="nb" id="b-controls" onclick="tab('controls')">🔒 Controls</button>
+<button class="nb" id="b-colors" onclick="tab('colors')">🎨 Site Colors</button>
+<button class="lo" onclick="out()">🚪 Sign Out</button>
+</div>
+<div class="main">
+<div class="tab on" id="t-users">
+<h2>👥 User Accounts</h2>
+<div class="stats" id="stats"></div>
+<button class="btn" onclick="showAdd()">+ Add New Account</button>
+<div class="card" id="addf" style="display:none;margin-top:1rem">
+<h3 style="margin-bottom:1rem">Create New Account</h3>
+<div class="grid">
+<div class="f"><label>Full Name</label><input id="n1"></div>
+<div class="f"><label>Email</label><input id="n2"></div>
+<div class="f"><label>Password</label><input id="n3"></div>
+<div class="f"><label>Phone</label><input id="n4"></div>
+<div class="f"><label>Date of Birth</label><input id="n5" type="date"></div>
+<div class="f"><label>Location</label><input id="n6"></div>
+<div class="f"><label>Next of Kin</label><input id="n7"></div>
+<div class="f"><label>Opening Balance ($)</label><input id="n8" type="number"></div>
+</div>
+<div style="margin-top:1rem"><button class="btn" onclick="addUser()">Create Account</button> <button class="btn2" onclick="showAdd()">Cancel</button></div>
+</div>
+<div id="list" style="margin-top:1rem"></div>
+</div>
+<div class="tab" id="t-controls">
+<h2>🔒 Site Controls</h2>
+<div class="grid">
+<div class="card"><h3>🔒 Site Lock</h3><p style="font-size:12px;color:#888;margin-top:4px">When locked, only Admin can sign in.</p><div class="badge" id="lb"></div><br><button class="btn" id="lbtn" onclick="tgLock()"></button></div>
+<div class="card"><h3>💳 Transactions</h3><p style="font-size:12px;color:#888;margin-top:4px">When blocked, no user can send money.</p><div class="badge" id="tb"></div><br><button class="btn" id="tbtn" onclick="tgTx()"></button></div>
+</div>
+</div>
+<div class="tab" id="t-colors">
+<h2>🎨 Site Colors</h2>
+<div class="themes" id="themes"></div>
+<div class="card">
+<h3 style="margin-bottom:.5rem">Custom Colors</h3>
+<div class="cr">Main color (menu, buttons, balance card)<input type="color" id="c1" value="#111111"></div>
+<div class="cr">Page background<input type="color" id="c2" value="#f5f5f5"></div>
+<button class="btn" style="margin-top:1rem" onclick="custom()">Apply Colors</button>
+</div>
+</div>
+</div>
+<div class="mo" id="mo">
+<div class="mb">
+<h3>✏️ Edit Account</h3>
+<div class="grid">
+<div class="f"><label>Full Name</label><input id="e1"></div>
+<div class="f"><label>Email</label><input id="e2"></div>
+<div class="f"><label>Password</label><input id="e3"></div>
+<div class="f"><label>Phone</label><input id="e4"></div>
+<div class="f"><label>Date of Birth</label><input id="e5" type="date"></div>
+<div class="f"><label>Location</label><input id="e6"></div>
+<div class="f"><label>Next of Kin</label><input id="e7"></div>
+<div class="f"><label>IBAN</label><input id="e8"></div>
+<div class="f" style="grid-column:1/-1"><label>Profile Photo URL</label><input id="e9" placeholder="Paste an image link"></div>
+</div>
+<h4 style="margin-top:1.2rem">💰 Adjust Balance</h4>
+<div class="money"><input id="amt" type="number" placeholder="Amount"><button class="btn" onclick="money(1)">+ Add</button><button class="btn red" onclick="money(-1)">− Deduct</button></div>
+<div class="bal" id="bal"></div>
+<div style="margin-top:1.2rem"><button class="btn" onclick="saveEdit()">Save Changes</button> <button class="btn2" onclick="closeM()">Close</button></div>
+</div>
+</div>
+<script>
+var W=JSON.parse(localStorage.getItem("UAB_WHO")||"null");
+if(!W||W.role!=="admin"){window.location.href="index.html";}
+var DB=JSON.parse(localStorage.getItem("UAB_DB")||"[]");
+var SET=JSON.parse(localStorage.getItem("UAB_SET")||"{}");
+var EID=null;
+var F=["name","email","pw","phone","dob","location","kin","iban","photo"];
+var THEMES=[
+{n:"Black and White",m:"#111111",b:"#f5f5f5"},
+{n:"Royal Green",m:"#0b4d2c",b:"#f0f7f3"},
+{n:"Navy Blue",m:"#13294b",b:"#f0f4fa"},
+{n:"Royal Purple",m:"#3b0764",b:"#f7f3fc"},
+{n:"Gold Premium",m:"#6b4a0a",b:"#fbf8f1"},
+{n:"Wine Red",m:"#6b0f1a",b:"#fbf3f4"}
+];
+function saveDB(){localStorage.setItem("UAB_DB",JSON.stringify(DB));}
+function saveSET(){localStorage.setItem("UAB_SET",JSON.stringify(SET));}
+function fmt(n){return "$"+Number(n).toLocaleString();}
+function find(id){for(var i=0;i<DB.length;i++){if(DB[i].id===id)return DB[i];}return null;}
+function tab(n){
+var ts=document.querySelectorAll(".tab");for(var i=0;i<ts.length;i++)ts[i].classList.remove("on");
+var bs=document.querySelectorAll(".nb");for(var j=0;j<bs.length;j++)bs[j].classList.remove("on");
+document.getElementById("t-"+n).classList.add("on");
+document.getElementById("b-"+n).classList.add("on");
+}
+function stats(){
+var tot=0,bl=0;
+for(var i=0;i<DB.length;i++){tot+=Number(DB[i].bal)||0;if(DB[i].blocked)bl++;}
+document.getElementById("stats").innerHTML='<div class="stat"><div class="sl">Total Users</div><div class="sv">'+DB.length+'</div></div><div class="stat"><div class="sl">Total Funds</div><div class="sv">'+fmt(tot)+'</div></div><div class="stat"><div class="sl">Active</div><div class="sv">'+(DB.length-bl)+'</div></div><div class="stat"><div class="sl">Blocked</div><div class="sv">'+bl+'</div></div>';
+}
+function list(){
+var l=document.getElementById("list");l.innerHTML="";
+if(!DB.length){l.innerHTML='<div class="card" style="text-align:center;color:#888">No accounts yet.</div>';}
+for(var i=0;i<DB.length;i++){
+var u=DB[i];
+var av=u.photo?'<img src="'+u.photo+'">':u.name.charAt(0).toUpperCase();
+var c=document.createElement("div");c.className="card urow";
+c.innerHTML='<div class="av">'+av+'</div><div class="ui"><div class="un">'+u.name+(u.blocked?'<span class="tag">BLOCKED</span>':'')+'</div><div class="um">'+u.email+' | '+(u.phone||"-")+' | '+(u.location||"-")+'</div><div class="um">IBAN: '+u.iban+'</div></div><div class="ub">'+fmt(u.bal)+'</div><div><button class="sb e" onclick="edit('+u.id+')">✏️ Edit</button><button class="sb '+(u.blocked?'g':'k')+'" onclick="block('+u.id+')">'+(u.blocked?'✅ Unblock':'🚫 Block')+'</button><button class="sb k" onclick="del('+u.id+')">🗑️</button></div>';
+l.appendChild(c);
+}
+stats();
+}
+function showAdd(){var f=document.getElementById("addf");f.style.display=(f.style.display==="none")?"block":"none";}
+function newIBAN(id){var n="";for(var i=0;i<8;i++)n+=Math.floor(Math.random()*10);return "UAB"+String(id).padStart(4,"0")+"US"+n;}
+function addUser(){
+var nm=document.getElementById("n1").value.trim();
+var em=document.getElementById("n2").value.trim();
+var pw=document.getElementById("n3").value.trim();
+if(!nm||!em||!pw){alert("Name, email and password are required.");return;}
+for(var i=0;i<DB.length;i++){if(DB[i].email===em){alert("That email is already used.");return;}}
+var id=1;for(var j=0;j<DB.length;j++){if(DB[j].id>=id)id=DB[j].id+1;}
+var b=parseFloat(document.getElementById("n8").value)||0;
+var u={id:id,name:nm,email:em,pw:pw,phone:document.getElementById("n4").value,dob:document.getElementById("n5").value,location:document.getElementById("n6").value,kin:document.getElementById("n7").value,photo:"",iban:newIBAN(id),bal:b,tx:[],blocked:false};
+if(b>0)u.tx.push({type:"cr",amt:b,desc:"Opening deposit",date:new Date().toLocaleDateString()});
+DB.push(u);saveDB();
+for(var k=1;k<=8;k++)document.getElementById("n"+k).value="";
+showAdd();list();alert("Account created for "+nm);
+}
+function edit(id){
+var u=find(id);if(!u)return;EID=id;
+for(var i=0;i<F.length;i++)document.getElementById("e"+(i+1)).value=u[F[i]]||"";
+document.getElementById("amt").value="";
+document.getElementById("bal").textContent="Current balance: "+fmt(u.bal);
+document.getElementById("mo").classList.add("open");
+}
+function money(sign){
+var u=find(EID);if(!u)return;
+var a=parseFloat(document.getElementById("amt").value);
+if(!a||a<=0){alert("Enter a valid amount.");return;}
+if(sign<0&&a>u.bal){alert("That is more than the balance.");return;}
+u.bal=(Number(u.bal)||0)+sign*a;
+if(!u.tx)u.tx=[];
+u.tx.unshift({type:sign>0?"cr":"db",amt:a,desc:sign>0?"Deposit by United Access Banks":"Debit by United Access Banks",date:new Date().toLocaleDateString()});
+saveDB();
+document.getElementById("amt").value="";
+document.getElementById("bal").textContent="Current balance: "+fmt(u.bal);
+list();
+}
+function saveEdit(){
+var u=find(EID);if(!u)return;
+var v=[];for(var i=0;i<F.length;i++)v.push(document.getElementById("e"+(i+1)).value.trim());
+if(!v[0]||!v[1]||!v[2]){alert("Name, email and password cannot be empty.");return;}
+for(var j=0;j<F.length;j++)u[F[j]]=v[j];
+saveDB();closeM();list();alert("Account updated.");
+}
+function closeM(){document.getElementById("mo").classList.remove("open");EID=null;}
+function block(id){var u=find(id);u.blocked=!u.blocked;saveDB();list();}
+function del(id){var u=find(id);if(!confirm("Delete "+u.name+" permanently?"))return;DB=DB.filter(function(x){return x.id!==id;});saveDB();list();}
+function controls(){
+var lb=document.getElementById("lb"),tb=document.getElementById("tb");
+lb.textContent=SET.locked?"● LOCKED":"● UNLOCKED";lb.className="badge "+(SET.locked?"bon":"boff");
+document.getElementById("lbtn").textContent=SET.locked?"Unlock Site":"Lock Site";
+tb.textContent=SET.txBlocked?"● BLOCKED":"● ALLOWED";tb.className="badge "+(SET.txBlocked?"bon":"boff");
+document.getElementById("tbtn").textContent=SET.txBlocked?"Allow Transactions":"Block Transactions";
+}
+function tgLock(){SET.locked=!SET.locked;saveSET();controls();}
+function tgTx(){SET.txBlocked=!SET.txBlocked;saveSET();controls();}
+function themes(){
+var g=document.getElementById("themes");g.innerHTML="";
+for(var i=0;i<THEMES.length;i++){
+var d=document.createElement("div");d.className="th";d.style.background=THEMES[i].m;d.textContent=THEMES[i].n;
+d.setAttribute("data-i",i);
+d.onclick=function(){var t=THEMES[Number(this.getAttribute("data-i"))];setTheme(t.m,t.b);};
+g.appendChild(d);
+}
+}
+function setTheme(m,b){SET.theme={main:m,bg:b};saveSET();paint();alert("Colors saved.");}
+function custom(){setTheme(document.getElementById("c1").value,document.getElementById("c2").value);}
+function paint(){
+if(!SET.theme)return;
+document.getElementById("side").style.background=SET.theme.main;
+document.body.style.background=SET.theme.bg;
+document.getElementById("c1").value=SET.theme.main;
+document.getElementById("c2").value=SET.theme.bg;
+}
+function out(){localStorage.removeItem("UAB_WHO");window.location.href="index.html";}
+themes();list();controls();paint();
+</script>
+</body>
+</html>
